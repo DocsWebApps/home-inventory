@@ -1,0 +1,99 @@
+<div>
+  <h2 id="page-heading" data-cy="ItemImageHeading">
+    <span>Item Images</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-item-image"
+        [routerLink]="['/item-image/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Item Image </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="itemImages?.length === 0">
+    <span>No itemImages found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="itemImages && itemImages.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="image"><span>Image</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="createdDate"><span>Created Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lastModifiedDate"><span>Last Modified Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="item.id"><span>Item</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let itemImage of itemImages; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/item-image', itemImage.id, 'view']">{{ itemImage.id }}</a>
+          </td>
+          <td>{{ itemImage.name }}</td>
+          <td>
+            <a *ngIf="itemImage.image" (click)="openFile(itemImage.image, itemImage.imageContentType)">
+              <img
+                [src]="'data:' + itemImage.imageContentType + ';base64,' + itemImage.image"
+                style="max-height: 30px"
+                alt="itemImage image"
+              />
+            </a>
+            <span *ngIf="itemImage.image">{{ itemImage.imageContentType }}, {{ byteSize(itemImage.image) }}</span>
+          </td>
+          <td>{{ itemImage.createdDate | formatMediumDate }}</td>
+          <td>{{ itemImage.lastModifiedDate | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="itemImage.item">
+              <a [routerLink]="['/item', itemImage.item?.id, 'view']">{{ itemImage.item?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/item-image', itemImage.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/item-image', itemImage.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(itemImage)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+{
+  "name": "ItemModel",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "item",
+      "otherEntityRelationshipName": "itemModel",
+      "relationshipName": "item"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemMake",
+      "otherEntityRelationshipName": "itemModel",
+      "relationshipValidateRules": "required",
+      "relationshipName": "itemMake"
+    }
+  ],
+  "entityTableName": "item_model",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210607111041"
+}

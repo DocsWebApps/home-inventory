@@ -1,0 +1,108 @@
+<div>
+  <h2 id="page-heading" data-cy="ItemHeading">
+    <span>Items</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-item"
+        [routerLink]="['/item/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Item </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="items?.length === 0">
+    <span>No items found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="items && items.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="cost"><span>Cost</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="isCostEstimate"><span>Is Cost Estimate</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="serialNumber"><span>Serial Number</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="purchaseDate"><span>Purchase Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="isPurchaseDateEstimate"><span>Is Purchase Date Estimate</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="haveReceipt"><span>Have Receipt</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="additionalInfo"><span>Additional Info</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="createdDate"><span>Created Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lastModifiedDate"><span>Last Modified Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="itemCategory.id"><span>Item Category</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="itemOwner.id"><span>Item Owner</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="itemLocation.id"><span>Item Location</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="itemModel.id"><span>Item Model</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let item of items; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/item', item.id, 'view']">{{ item.id }}</a>
+          </td>
+          <td>{{ item.cost }}</td>
+          <td>{{ item.isCostEstimate }}</td>
+          <td>{{ item.serialNumber }}</td>
+          <td>{{ item.purchaseDate | formatMediumDate }}</td>
+          <td>{{ item.isPurchaseDateEstimate }}</td>
+          <td>{{ item.haveReceipt }}</td>
+          <td>{{ item.additionalInfo }}</td>
+          <td>{{ item.createdDate | formatMediumDate }}</td>
+          <td>{{ item.lastModifiedDate | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="item.itemCategory">
+              <a [routerLink]="['/item-category', item.itemCategory?.id, 'view']">{{ item.itemCategory?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="item.itemOwner">
+              <a [routerLink]="['/item-owner', item.itemOwner?.id, 'view']">{{ item.itemOwner?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="item.itemLocation">
+              <a [routerLink]="['/item-location', item.itemLocation?.id, 'view']">{{ item.itemLocation?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="item.itemModel">
+              <a [routerLink]="['/item-model', item.itemModel?.id, 'view']">{{ item.itemModel?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/item', item.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/item', item.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(item)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+id;cost;is_cost_estimate;serial_number;purchase_date;is_purchase_date_estimate;have_receipt;additional_info;created_date;last_modified_date;item_category_id;item_owner_id;item_location_id;item_model_id
+1;50449;true;convergence;2021-06-07;false;false;../fake-data/blob/hipster.txt;2021-06-06;2021-06-06;1;1;1;1
+2;22934;true;cyan McDonald;2021-06-06;false;false;../fake-data/blob/hipster.txt;2021-06-07;2021-06-07;2;2;2;2
+3;65763;false;Concrete killer;2021-06-06;true;true;../fake-data/blob/hipster.txt;2021-06-06;2021-06-06;3;3;3;3
+4;34553;true;Concrete portal;2021-06-07;true;false;../fake-data/blob/hipster.txt;2021-06-06;2021-06-06;4;4;4;4
+5;564;false;Granite Shirt;2021-06-06;false;false;../fake-data/blob/hipster.txt;2021-06-06;2021-06-06;5;5;5;5
+6;2865;false;Pizza District intermediate;2021-06-07;false;false;../fake-data/blob/hipster.txt;2021-06-07;2021-06-06;6;6;6;6
+7;32174;false;SSL Quality Directives;2021-06-06;false;true;../fake-data/blob/hipster.txt;2021-06-06;2021-06-07;7;7;7;7
+8;90643;false;Salad Chips;2021-06-06;true;true;../fake-data/blob/hipster.txt;2021-06-07;2021-06-06;8;8;8;8
+9;85633;false;Loan Path;2021-06-06;true;true;../fake-data/blob/hipster.txt;2021-06-07;2021-06-06;9;9;9;9
+10;79965;false;program RSS;2021-06-06;false;true;../fake-data/blob/hipster.txt;2021-06-07;2021-06-07;10;10;10;10

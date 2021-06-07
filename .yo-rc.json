@@ -41,6 +41,8 @@
     "packageFolder": "com/docswebapps/jh/homeinventory",
     "jwtSecretKey": "M2ZkNGQ4NzhhM2Q5OTczOTdmOTVmNDdhZTI3ODMxNjQyNWNmNzFlOTVhMDJlY2E3MmM1ZTY2M2VhOGMyNmVkOTlkZTA5YTllY2RjZmEzMjViN2QzOTY3Y2QwYzQ2ZTBkMDMzNDc3ZDEyY2Y0YjhmZWNmY2M3Mzk1ZWJmM2NkYmY=",
     "clientPackageManager": "npm",
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["ItemCategory", "Item", "ItemImage", "ItemLocation", "ItemMake", "ItemModel", "ItemOwner"],
+    "lastLiquibaseTimestamp": 1623064242000
   }
 }

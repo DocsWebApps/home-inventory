@@ -1,0 +1,88 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="item">
+      <h2 data-cy="itemDetailsHeading"><span>Item</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ item.id }}</span>
+        </dd>
+        <dt><span>Cost</span></dt>
+        <dd>
+          <span>{{ item.cost }}</span>
+        </dd>
+        <dt><span>Is Cost Estimate</span></dt>
+        <dd>
+          <span>{{ item.isCostEstimate }}</span>
+        </dd>
+        <dt><span>Serial Number</span></dt>
+        <dd>
+          <span>{{ item.serialNumber }}</span>
+        </dd>
+        <dt><span>Purchase Date</span></dt>
+        <dd>
+          <span>{{ item.purchaseDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Is Purchase Date Estimate</span></dt>
+        <dd>
+          <span>{{ item.isPurchaseDateEstimate }}</span>
+        </dd>
+        <dt><span>Have Receipt</span></dt>
+        <dd>
+          <span>{{ item.haveReceipt }}</span>
+        </dd>
+        <dt><span>Additional Info</span></dt>
+        <dd>
+          <span>{{ item.additionalInfo }}</span>
+        </dd>
+        <dt><span>Created Date</span></dt>
+        <dd>
+          <span>{{ item.createdDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Last Modified Date</span></dt>
+        <dd>
+          <span>{{ item.lastModifiedDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Item Category</span></dt>
+        <dd>
+          <div *ngIf="item.itemCategory">
+            <a [routerLink]="['/item-category', item.itemCategory?.id, 'view']">{{ item.itemCategory?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Item Owner</span></dt>
+        <dd>
+          <div *ngIf="item.itemOwner">
+            <a [routerLink]="['/item-owner', item.itemOwner?.id, 'view']">{{ item.itemOwner?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Item Location</span></dt>
+        <dd>
+          <div *ngIf="item.itemLocation">
+            <a [routerLink]="['/item-location', item.itemLocation?.id, 'view']">{{ item.itemLocation?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Item Model</span></dt>
+        <dd>
+          <div *ngIf="item.itemModel">
+            <a [routerLink]="['/item-model', item.itemModel?.id, 'view']">{{ item.itemModel?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/item', item.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

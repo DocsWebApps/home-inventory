@@ -1,0 +1,260 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-item-heading" data-cy="ItemCreateUpdateHeading">Create or edit a Item</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_cost">Cost</label>
+          <input type="number" class="form-control" name="cost" id="field_cost" data-cy="cost" formControlName="cost" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_isCostEstimate">Is Cost Estimate</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isCostEstimate"
+            id="field_isCostEstimate"
+            data-cy="isCostEstimate"
+            formControlName="isCostEstimate"
+          />
+          <div
+            *ngIf="
+              editForm.get('isCostEstimate')!.invalid && (editForm.get('isCostEstimate')!.dirty || editForm.get('isCostEstimate')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('isCostEstimate')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_serialNumber">Serial Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="serialNumber"
+            id="field_serialNumber"
+            data-cy="serialNumber"
+            formControlName="serialNumber"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_purchaseDate">Purchase Date</label>
+          <div class="input-group">
+            <input
+              id="field_purchaseDate"
+              data-cy="purchaseDate"
+              type="text"
+              class="form-control"
+              name="purchaseDate"
+              ngbDatepicker
+              #purchaseDateDp="ngbDatepicker"
+              formControlName="purchaseDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="purchaseDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+          <div
+            *ngIf="editForm.get('purchaseDate')!.invalid && (editForm.get('purchaseDate')!.dirty || editForm.get('purchaseDate')!.touched)"
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('purchaseDate')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_isPurchaseDateEstimate">Is Purchase Date Estimate</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isPurchaseDateEstimate"
+            id="field_isPurchaseDateEstimate"
+            data-cy="isPurchaseDateEstimate"
+            formControlName="isPurchaseDateEstimate"
+          />
+          <div
+            *ngIf="
+              editForm.get('isPurchaseDateEstimate')!.invalid &&
+              (editForm.get('isPurchaseDateEstimate')!.dirty || editForm.get('isPurchaseDateEstimate')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('isPurchaseDateEstimate')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_haveReceipt">Have Receipt</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="haveReceipt"
+            id="field_haveReceipt"
+            data-cy="haveReceipt"
+            formControlName="haveReceipt"
+          />
+          <div *ngIf="editForm.get('haveReceipt')!.invalid && (editForm.get('haveReceipt')!.dirty || editForm.get('haveReceipt')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('haveReceipt')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_additionalInfo">Additional Info</label>
+          <textarea
+            class="form-control"
+            name="additionalInfo"
+            id="field_additionalInfo"
+            data-cy="additionalInfo"
+            formControlName="additionalInfo"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_createdDate">Created Date</label>
+          <div class="input-group">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="text"
+              class="form-control"
+              name="createdDate"
+              ngbDatepicker
+              #createdDateDp="ngbDatepicker"
+              formControlName="createdDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_lastModifiedDate">Last Modified Date</label>
+          <div class="input-group">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="text"
+              class="form-control"
+              name="lastModifiedDate"
+              ngbDatepicker
+              #lastModifiedDateDp="ngbDatepicker"
+              formControlName="lastModifiedDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="lastModifiedDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_itemCategory">Item Category</label>
+          <select class="form-control" id="field_itemCategory" data-cy="itemCategory" name="itemCategory" formControlName="itemCategory">
+            <option *ngIf="!editForm.get('itemCategory')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                itemCategoryOption.id === editForm.get('itemCategory')!.value?.id ? editForm.get('itemCategory')!.value : itemCategoryOption
+              "
+              *ngFor="let itemCategoryOption of itemCategoriesSharedCollection; trackBy: trackItemCategoryById"
+            >
+              {{ itemCategoryOption.id }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['itemCategory'])!.invalid && (editForm.get(['itemCategory'])!.dirty || editForm.get(['itemCategory'])!.touched)
+          "
+        >
+          <small class="form-text text-danger" *ngIf="editForm.get(['itemCategory'])?.errors?.required"> This field is required. </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_itemOwner">Item Owner</label>
+          <select class="form-control" id="field_itemOwner" data-cy="itemOwner" name="itemOwner" formControlName="itemOwner">
+            <option *ngIf="!editForm.get('itemOwner')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="itemOwnerOption.id === editForm.get('itemOwner')!.value?.id ? editForm.get('itemOwner')!.value : itemOwnerOption"
+              *ngFor="let itemOwnerOption of itemOwnersSharedCollection; trackBy: trackItemOwnerById"
+            >
+              {{ itemOwnerOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['itemOwner'])!.invalid && (editForm.get(['itemOwner'])!.dirty || editForm.get(['itemOwner'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['itemOwner'])?.errors?.required"> This field is required. </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_itemLocation">Item Location</label>
+          <select class="form-control" id="field_itemLocation" data-cy="itemLocation" name="itemLocation" formControlName="itemLocation">
+            <option *ngIf="!editForm.get('itemLocation')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                itemLocationOption.id === editForm.get('itemLocation')!.value?.id ? editForm.get('itemLocation')!.value : itemLocationOption
+              "
+              *ngFor="let itemLocationOption of itemLocationsSharedCollection; trackBy: trackItemLocationById"
+            >
+              {{ itemLocationOption.id }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['itemLocation'])!.invalid && (editForm.get(['itemLocation'])!.dirty || editForm.get(['itemLocation'])!.touched)
+          "
+        >
+          <small class="form-text text-danger" *ngIf="editForm.get(['itemLocation'])?.errors?.required"> This field is required. </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_itemModel">Item Model</label>
+          <select class="form-control" id="field_itemModel" data-cy="itemModel" name="itemModel" formControlName="itemModel">
+            <option *ngIf="!editForm.get('itemModel')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="itemModelOption.id === editForm.get('itemModel')!.value?.id ? editForm.get('itemModel')!.value : itemModelOption"
+              *ngFor="let itemModelOption of itemModelsSharedCollection; trackBy: trackItemModelById"
+            >
+              {{ itemModelOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['itemModel'])!.invalid && (editForm.get(['itemModel'])!.dirty || editForm.get(['itemModel'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['itemModel'])?.errors?.required"> This field is required. </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

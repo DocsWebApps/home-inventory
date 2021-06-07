@@ -1,7 +1,9 @@
 package com.docswebapps.jh.homeinventory.config;
 
 import java.time.Duration;
-import org.ehcache.config.builders.*;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.ExpiryPolicyBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.jsr107.Eh107Configuration;
 import org.hibernate.cache.jcache.ConfigSettings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,8 @@ import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import tech.jhipster.config.JHipsterProperties;
 import tech.jhipster.config.cache.PrefixedKeyGenerator;
 
@@ -48,6 +51,19 @@ public class CacheConfiguration {
             createCache(cm, com.docswebapps.jh.homeinventory.domain.User.class.getName());
             createCache(cm, com.docswebapps.jh.homeinventory.domain.Authority.class.getName());
             createCache(cm, com.docswebapps.jh.homeinventory.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemCategory.class.getName());
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemCategory.class.getName() + ".items");
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.Item.class.getName());
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.Item.class.getName() + ".itemImages");
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemImage.class.getName());
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemLocation.class.getName());
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemLocation.class.getName() + ".items");
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemMake.class.getName());
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemMake.class.getName() + ".itemModels");
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemModel.class.getName());
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemModel.class.getName() + ".items");
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemOwner.class.getName());
+            createCache(cm, com.docswebapps.jh.homeinventory.domain.ItemOwner.class.getName() + ".items");
             // jhipster-needle-ehcache-add-entry
         };
     }

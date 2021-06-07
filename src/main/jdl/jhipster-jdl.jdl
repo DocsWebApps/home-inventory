@@ -1,0 +1,79 @@
+entity ItemCategory {
+	name String required
+    createdDate LocalDate
+    lastModifiedDate LocalDate
+}
+
+entity Item {
+	cost Double
+    isCostEstimate Boolean required
+    serialNumber String
+    purchaseDate LocalDate required
+    isPurchaseDateEstimate Boolean required
+    haveReceipt Boolean required
+    additionalInfo TextBlob
+    createdDate LocalDate
+    lastModifiedDate LocalDate
+}
+
+entity ItemImage {
+	name String
+	image ImageBlob
+    createdDate LocalDate
+    lastModifiedDate LocalDate
+}
+
+entity ItemLocation {
+	name String required
+    createdDate LocalDate
+    lastModifiedDate LocalDate
+}
+
+entity ItemMake {
+	name String required
+    createdDate LocalDate
+    lastModifiedDate LocalDate
+}
+
+entity ItemModel {
+	name String required
+    createdDate LocalDate
+    lastModifiedDate LocalDate
+}
+
+entity ItemOwner {
+	name String required
+    createdDate LocalDate
+    lastModifiedDate LocalDate
+}
+
+relationship OneToMany {
+	ItemCategory to Item{itemCategory required}
+    ItemOwner to Item{itemOwner required}
+    ItemLocation to Item{itemLocation required}
+    ItemMake to ItemModel{itemMake required}
+    ItemModel to Item{itemModel required}
+    Item to ItemImage{item required}
+}
+
+paginate Item with infinite-scroll
+paginate ItemImage with infinite-scroll
+paginate ItemMake with pagination
+paginate ItemOwner with pagination
+paginate ItemModel with pagination
+paginate ItemLocation with pagination
+paginate ItemCategory with pagination
+dto * with mapstruct
+service all with serviceImpl
+
+
+
+
+
+
+
+
+
+
+
+

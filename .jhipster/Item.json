@@ -1,0 +1,92 @@
+{
+  "name": "Item",
+  "fields": [
+    {
+      "fieldName": "cost",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "isCostEstimate",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "serialNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "purchaseDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isPurchaseDateEstimate",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "haveReceipt",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "additionalInfo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "itemImage",
+      "otherEntityRelationshipName": "item",
+      "relationshipName": "itemImage"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemCategory",
+      "otherEntityRelationshipName": "item",
+      "relationshipValidateRules": "required",
+      "relationshipName": "itemCategory"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemOwner",
+      "otherEntityRelationshipName": "item",
+      "relationshipValidateRules": "required",
+      "relationshipName": "itemOwner"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemLocation",
+      "otherEntityRelationshipName": "item",
+      "relationshipValidateRules": "required",
+      "relationshipName": "itemLocation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemModel",
+      "otherEntityRelationshipName": "item",
+      "relationshipValidateRules": "required",
+      "relationshipName": "itemModel"
+    }
+  ],
+  "entityTableName": "item",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210607111037"
+}

@@ -1,0 +1,126 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-item-image-heading" data-cy="ItemImageCreateUpdateHeading">Create or edit a Item Image</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_image">Image</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + editForm.get('image')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image')!.value"
+              alt="itemImage image"
+            />
+            <div *ngIf="editForm.get('image')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(editForm.get('image')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image" data-cy="image" (change)="setFileData($event, 'image', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_createdDate">Created Date</label>
+          <div class="input-group">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="text"
+              class="form-control"
+              name="createdDate"
+              ngbDatepicker
+              #createdDateDp="ngbDatepicker"
+              formControlName="createdDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_lastModifiedDate">Last Modified Date</label>
+          <div class="input-group">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="text"
+              class="form-control"
+              name="lastModifiedDate"
+              ngbDatepicker
+              #lastModifiedDateDp="ngbDatepicker"
+              formControlName="lastModifiedDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="lastModifiedDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_item">Item</label>
+          <select class="form-control" id="field_item" data-cy="item" name="item" formControlName="item">
+            <option *ngIf="!editForm.get('item')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="itemOption.id === editForm.get('item')!.value?.id ? editForm.get('item')!.value : itemOption"
+              *ngFor="let itemOption of itemsSharedCollection; trackBy: trackItemById"
+            >
+              {{ itemOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['item'])!.invalid && (editForm.get(['item'])!.dirty || editForm.get(['item'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['item'])?.errors?.required"> This field is required. </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
