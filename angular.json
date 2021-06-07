@@ -95,6 +95,7 @@
   },
   "defaultProject": "home-inventory",
   "cli": {
+    "analytics": false,
     "packageManager": "npm"
   }
 }
