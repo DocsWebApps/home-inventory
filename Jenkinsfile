@@ -65,7 +65,7 @@ node {
 
         stage('build docker image') {
           sh "cp /root/HomeInventory/Dockerfile ./target"
-          sh "./mvnw -s /opt/maven/mvn3/conf/settings.xml -Dmaven.test.skip=true -Pprod dockerfile:build"
+          sh "docker build ./target"
         }
 
         stage('restart containers') {
